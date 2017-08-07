@@ -9,25 +9,28 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Element;
-
+//count the no. of services that respond with pong
 public class NetClientGet {
 
 	public static void main(String[] args) {
 
 	  try {
 		  HttpURLConnection conn=null;
+		  //Navigate to walletinsights home page
 		  String baseurl="https://api.walletinsights.com";
 		  Document doc = Jsoup.connect(baseurl).get();  
 		  Elements links = doc.select("a[href]");  
 		  int count=0;
+		  //Iterating through loop
 		  for (Element link : links) {
 		      String suburl=link.text();
 		      URL url = new URL(baseurl+"/"+suburl+"/ping");
 		      conn=(HttpURLConnection) url.openConnection();
 		      conn.setRequestMethod("GET");
 		      if (conn.getResponseCode() != 200) {
-		    	 // System.out.println("failed for "+suburl);
+		    	 
 		    	  //failed cases
+			      System.out.println("failed for "+suburl);
 				}
 		      else {
 		    	  
